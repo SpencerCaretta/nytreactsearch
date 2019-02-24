@@ -1,13 +1,13 @@
 import axios from "axios";
 
 export default {
+  //Search google API for queried book
+  googleBooks: function(query) {
+    return axios.get("/api/search/" + query);
+  },
   // Gets all books
   getBooks: function() {
     return axios.get("/api/books");
-  },
-  // Gets the book with the given id
-  getBook: function(id) {
-    return axios.get("/api/books/" + id);
   },
   // Deletes the book with the given id
   deleteBook: function(id) {
