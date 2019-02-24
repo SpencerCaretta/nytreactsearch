@@ -10,30 +10,26 @@ import { Input, TextArea, FormBtn } from "../components/Form";
 class Search extends Component {
     state = {
       books: [],
-      title: "",
-      author: "",
-      description: "",
-      image: "",
-      link: ""
+      googleSearch: ""
     };
   
-    componentDidMount() {
-      this.loadBooks();
-    }
+    // componentDidMount() {
+    //   this.loadBooks();
+    // }
   
-    loadBooks = () => {
-      API.getBooks()
-        .then(res =>
-          this.setState({ books: res.data, title: "", author: "", description: "", image: "", link: "" })
-        )
-        .catch(err => console.log(err));
-    };
+    // loadBooks = () => {
+    //   API.getBooks()
+    //     .then(res =>
+    //       this.setState({ books: res.data, title: "", author: "", description: "", image: "", link: "" })
+    //     )
+    //     .catch(err => console.log(err));
+    // };
   
-    deleteBook = id => {
-      API.deleteBook(id)
-        .then(res => this.loadBooks())
-        .catch(err => console.log(err));
-    };
+    // deleteBook = id => {
+    //   API.deleteBook(id)
+    //     .then(res => this.loadBooks())
+    //     .catch(err => console.log(err));
+    // };
   
     handleInputChange = event => {
       const { name, value } = event.target;
@@ -42,17 +38,11 @@ class Search extends Component {
       });
     };
   
-    handleFormSubmit = event => {
+    handleGoogleSubmit = event => {
       event.preventDefault();
       if (this.state.title) {
-        API.saveBook({
-          title: this.state.title,
-          author: this.state.author,
-          description: this.state.description,
-          image: this.state.image,
-          link: this.state.link
-        })
-          .then(res => this.loadBooks())
+        API.googleBooks(this.state.googleSearch)
+          .then(res => this.setState({ bookResults: res.data.items }))
           .catch(err => console.log(err));
       }
     };
@@ -66,14 +56,14 @@ class Search extends Component {
               </Jumbotron>
               <form>
                 <Input
-                  value={this.state.title}
+                  value={this.state.googleSearch}
                   onChange={this.handleInputChange}
                   name="title"
                   placeholder="Title (required)"
                 />
                 <FormBtn
-                  disabled={!(this.state.title)}
-                  onClick={this.handleFormSubmit}
+                  disabled={!(this.state.googleSearch)}
+                  onClick={this.handleGoogleSubmit}
                 >
                   Search
                 </FormBtn>
