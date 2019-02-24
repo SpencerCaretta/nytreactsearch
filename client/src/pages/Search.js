@@ -61,7 +61,7 @@ class Search extends Component {
       return (
         <Container fluid>
           <Row>
-            <Col size="md-6">
+            <Col size="md-12">
               <Jumbotron>
               </Jumbotron>
               <form>
@@ -71,30 +71,17 @@ class Search extends Component {
                   name="title"
                   placeholder="Title (required)"
                 />
-                <Input
-                  value={this.state.author}
-                  onChange={this.handleInputChange}
-                  name="author"
-                  placeholder="Author (required)"
-                />
-                <TextArea
-                  value={this.state.synopsis}
-                  onChange={this.handleInputChange}
-                  name="synopsis"
-                  placeholder="Synopsis (Optional)"
-                />
                 <FormBtn
-                  disabled={!(this.state.author && this.state.title)}
+                  disabled={!(this.state.title)}
                   onClick={this.handleFormSubmit}
                 >
-                  Submit Book
+                  Search
                 </FormBtn>
               </form>
             </Col>
-            <Col size="md-6 sm-12">
-              <Jumbotron>
-                <h1>Books On My List</h1>
-              </Jumbotron>
+          </Row>
+          <Row>
+            <Col size="md-12">
               {this.state.books.length ? (
                 <List>
                   {this.state.books.map(book => (
